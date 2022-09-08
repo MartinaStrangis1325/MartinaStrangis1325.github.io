@@ -1,17 +1,17 @@
-on : push
- jobs : 
-  test : 
-    strategia : 
-      matrix : 
-        platform : [ubuntu-latest, macos-latest, windows-latest]
-     run-on : ${{ matrix.platform }}
-     passi : 
-    - utilizza : actions/checkout@v3
-    - utilizza : actions/setup-node@v3
-       con : 
-        node-version : 16
-    - eseguire : npm install-ci-test
-    - utilizza :
+on: push
+jobs:
+  test:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - run: npm install-ci-test
+    - uses:
 
 
 
@@ -23,7 +23,7 @@ on : push
 
 
 
-  pubblicare : 
-    esigenze : [test]
-     passaggi : 
-    - usi : azioni/checkout@v3
+  publish:
+    needs: [test]
+    steps:
+    - uses: actions/checkout@v3
